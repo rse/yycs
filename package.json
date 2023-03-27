@@ -1,0 +1,47 @@
+{
+    "name":                                 "yycs",
+    "version":                              "0.9.0",
+    "homepage":                             "https://github.com/rse/yycs",
+    "description":                          "Yin-Yang Color Scheme (YYCS)",
+    "author": {
+        "name":                             "Dr. Ralf S. Engelschall",
+        "email":                            "rse@engelschall.com",
+        "url":                              "http://engelschall.com"
+    },
+    "license":                              "MIT",
+    "repository": {
+        "type":                             "git",
+        "url":                              "https://github.com/rse/yycs"
+    },
+    "main":                                 "./dst/yyargs-api.js",
+    "types":                                "./dst/yyargs-api.d.ts",
+    "browser":                              "./dst/yyargs-api.umd.js",
+    "bin":                                  { "yycs": "./dst/yyargs-cli.js" },
+    "dependencies": {
+        "yargs":                            "17.7.1",
+        "js-yaml":                          "4.1.0",
+        "tinycolor2":                       "1.6.0",
+        "object-path":                      "0.11.8",
+        "merge-options":                    "3.0.4",
+        "@types/yargs":                     "17.0.24",
+        "@types/js-yaml":                   "4.0.5",
+        "@types/object-path":               "0.11.1",
+        "@types/tinycolor2":                "1.4.3",
+        "@types/node":                      "18.15.10"
+    },
+    "devDependencies": {
+        "nps":                              "5.10.0",
+        "eslint":                           "8.36.0",
+        "@typescript-eslint/parser":        "5.57.0",
+        "@typescript-eslint/eslint-plugin": "5.57.0",
+        "eslint-config-standard":           "17.0.0",
+        "eslint-plugin-import":             "2.27.5",
+        "typescript":                       "5.0.2",
+        "vite":                             "4.2.1",
+        "rimraf":                           "4.4.1"
+    },
+    "scripts": {
+        "prepublishOnly":                   "nps -c etc-nps.yaml eslint tsc vite",
+        "start":                            "nps -c etc-nps.yaml"
+    }
+}

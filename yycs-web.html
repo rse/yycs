@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<!--
+**
+**  YYCS -- Yin-Yang Color Scheme
+**  Copyright (c) 2023 Dr. Ralf S. Engelschall <rse@engelschall.com>
+**
+**  Permission is hereby granted, free of charge, to any person obtaining
+**  a copy of this software and associated documentation files (the
+**  "Software"), to deal in the Software without restriction, including
+**  without limitation the rights to use, copy, modify, merge, publish,
+**  distribute, sublicense, and/or sell copies of the Software, and to
+**  permit persons to whom the Software is furnished to do so, subject to
+**  the following conditions:
+**
+**  The above copyright notice and this permission notice shall be included
+**  in all copies or substantial portions of the Software.
+**
+**  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+**  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+**  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+**  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+**  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+**  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+**  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+**
+-->
+<html>
+    <head>
+        <title>YYCS</title>
+        <meta charset="UTF-8"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.prod.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/object-path@0.11.8/index.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/tinycolor2@1.6.0/dist/tinycolor-min.js"></script>
+        <script type="text/javascript" src="./dst/yycs-api.umd.js"></script>
+        <style type="text/css">
+            body {
+                background-color: #303030;
+                color: #ffffff;
+                font-family: "Source Sans Pro", sans-serif;
+                font-size: 11pt;
+                margin: 50px;
+            }
+            .spec {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: flex-end;
+            }
+            .spec .spec-col {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-right: 8px;
+            }
+            .spec .spec-col.params1 {
+                margin-left: 20px;
+            }
+            .spec .spec-item {
+                margin-bottom: 4px;
+                background-color: #404040;
+                border-radius: 4px;
+                padding: 4px;
+            }
+            .spec .name {
+                color: #c0c0c0;
+            }
+            .spec input.value {
+                color: #f0f0f0;
+                background-color: #505050;
+                border: 0;
+                border-radius: 4px;
+                width: 80px;
+                font-family: "Source Code Pro", monospace;
+                font-size: 13pt;
+                margin-top: 4px;
+            }
+            .spec .spec-item.invalid {
+                color: #f0d0b0;
+                background-color: #705030;
+            }
+            .spec .spec-item.invalid .name {
+                color: #f0d0b0;
+            }
+            .spec .spec-item.invalid input.value {
+                color: #f0d0b0;
+                background-color: #907050;
+            }
+            .spec input.value:hover {
+                color: #b0d0ff;
+                background-color: #507090;
+            }
+            .spec input.value:focus {
+                color: #b0d0ff;
+                background-color: #507090;
+                outline: none;
+            }
+
+            textarea.css {
+                width: 700px;
+                height: 200px;
+                color: #f0f0f0;
+                background-color: #404040;
+                border-radius: 4px;
+                border: 0;
+                padding: 4px;
+            }
+
+            .sample {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: flex-end;
+            }
+            .sample .sample-col {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-right: 8px;
+            }
+            .sample .sample-item {
+                width:  135px;
+                height: auto;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-family: "Source Code Pro";
+                font-size: 9pt;
+                border-radius: 4px;
+                border: 0;
+                margin-bottom: 8px;
+                background-color: #404040;
+            }
+            .sample .sample-item .fg {
+                margin-top: 4px;
+                border-radius: 4px;
+                padding: 4px;
+                box-shadow: 0 0 8px #202020;
+            }
+            .sample .sample-item .bg {
+                padding: 4px;
+            }
+        </style>
+    </head>
+    <body>
+        <div v-bind:style="style">
+            <h1>Yin-Yang Color Scheme</h1>
+
+            <h2>Specification</h2>
+
+            <div class="spec">
+                <div class="spec-col acc">
+                    <div class="spec-item bg" v-bind:class="{ invalid: spec.acc.bg === '' }">
+                        <div class="name">acc-bg</div>
+                        <input class="value" v-model="spec.acc.bg"></input>
+                    </div>
+                    <div class="spec-item fg">
+                        <div class="name">acc-fg</div>
+                        <input class="value" v-model="spec.acc.fg"></input>
+                    </div>
+                </div>
+                <div class="spec-col axs">
+                    <div class="spec-item fg">
+                        <div class="name">axr-fg</div>
+                        <input class="value" v-model="spec.axr.fg"></input>
+                    </div>
+                </div>
+                <div class="spec-col reg">
+                    <div class="spec-item bg" v-bind:class="{ invalid: spec.reg.bg === '' }">
+                        <div class="name">reg-bg</div>
+                        <input class="value" v-model="spec.reg.bg"></input>
+                    </div>
+                    <div class="spec-item fg">
+                        <div class="name">reg-fg</div>
+                        <input class="value" v-model="spec.reg.fg"></input>
+                    </div>
+                </div>
+                <div class="spec-col sxs">
+                    <div class="spec-item fg">
+                        <div class="name">sxr-fg</div>
+                        <input class="value" v-model="spec.sxr.fg"></input>
+                    </div>
+                </div>
+                <div class="spec-col sig">
+                    <div class="spec-item bg">
+                        <div class="name">sig-bg</div>
+                        <input class="value" v-model="spec.sig.bg"></input>
+                    </div>
+                    <div class="spec-item fg">
+                        <div class="name">sig-fg</div>
+                        <input class="value" v-model="spec.sig.fg"></input>
+                    </div>
+                </div>
+                <div class="spec-col params1">
+                    <div class="spec-item bg">
+                        <div class="params-N">
+                            <div class="name">N</div>
+                            <input class="value" v-model="spec.N"></input>
+                        </div>
+                    </div>
+                    <div class="spec-item fg">
+                        <div class="params-M">
+                            <div class="name">M</div>
+                            <input class="value" v-model="spec.M"></input>
+                        </div>
+                    </div>
+                </div>
+                <div class="spec-col params2">
+                    <div class="spec-item bg">
+                        <div class="params-K">
+                            <div class="name">K</div>
+                            <input class="value" v-model="spec.K"></input>
+                        </div>
+                    </div>
+                    <div class="spec-item fg">
+                        <div class="params-L">
+                            <div class="name">L</div>
+                            <input class="value" v-model="spec.L"></input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Result Samples</h2>
+
+            <div class="sample">
+                <div v-for="col in [ 'acc', 'axr', 'reg', 'sxr', 'sig' ]" v-bind:key="col" class="sample-col">
+                    <div v-for="(bg, n) in yycs[col].bg" class="sample-item">
+                        <div class="fg" v-bind:style="{ backgroundColor: yycs[col].bg[n] }">
+                            <div v-for="(fg, m) in yycs[col].fg" v-bind:style="{ color: yycs[col].fg[m] }">
+                                {{ col }}-fg-{{ m + 1 }} {{ yycs[col].fg[m] }}
+                            </div>
+                        </div>
+                        <div class="bg">
+                            {{ col }}-bg-{{ n + 1 }} {{ yycs[col].bg[n] }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Result CSS</h2>
+
+            <textarea class="css">{{ yycs.css() }}</textarea>
+        </div>
+    </body>
+    <script type="text/javascript">
+        const app = Vue.createApp({
+            data () {
+                return {
+                    spec: {
+                        acc: { fg: "", bg: "#336699" },
+                        axr: { fg: "" },
+                        reg: { fg: "", bg: "#333333" },
+                        sxr: { fg: "" },
+                        sig: { fg: "", bg: "" },
+                        N:   "",
+                        M:   "",
+                        K:   "",
+                        L:   ""
+                    },
+                    yycs: null
+                }
+            },
+            watch: {
+                spec: {
+                    deep: true,
+                    handler (newVal, oldVal) {
+                        this.update()
+                    }
+                }
+            },
+            created () {
+                this.update()
+            },
+            methods: {
+                update () {
+                    if (this.spec.reg.bg === "" || this.spec.acc.bg === "")
+                        return
+                    const spec = {}
+                    if (this.spec.reg.bg !== "") objectPath.set(spec, "reg.bg", this.spec.reg.bg)
+                    if (this.spec.acc.bg !== "") objectPath.set(spec, "acc.bg", this.spec.acc.bg)
+                    if (this.spec.sig.bg !== "") objectPath.set(spec, "sig.bg", this.spec.sig.bg)
+                    if (this.spec.reg.fg !== "") objectPath.set(spec, "reg.fg", this.spec.reg.fg)
+                    if (this.spec.acc.fg !== "") objectPath.set(spec, "acc.fg", this.spec.acc.fg)
+                    if (this.spec.sig.fg !== "") objectPath.set(spec, "sig.fg", this.spec.sig.fg)
+                    if (this.spec.axr.fg !== "") objectPath.set(spec, "axr.fg", this.spec.axr.fg)
+                    if (this.spec.sxr.fg !== "") objectPath.set(spec, "sxr.fg", this.spec.sxr.fg)
+                    if (this.spec.N      !== "") spec.N = parseInt(this.spec.N)
+                    if (this.spec.M      !== "") spec.M = parseInt(this.spec.M)
+                    if (this.spec.K      !== "") spec.K = parseFloat(this.spec.K)
+                    if (this.spec.L      !== "") spec.L = parseFloat(this.spec.L)
+                    this.yycs = new YYCS(spec)
+                },
+                transpose (color) {
+                    const hsl = tinycolor(color).toHsl()
+                    if (hsl.l <= 0.5)
+                        hsl.l = 1.00 - (hsl.l / 0.50) * 0.15
+                    else
+                        hsl.l = 0.00 + (hsl.l / 0.50) * 0.15
+                    return tinycolor(hsl).toHexString()
+                }
+            }
+        })
+        app.mount("body")
+    </script>
+</html>
