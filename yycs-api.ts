@@ -224,8 +224,8 @@ export default class YYCS {
         uri += (spec.sxr?.fg ? tc(spec.sxr.fg).toHex() : "") + "-"
         uri += (spec.N !== undefined && spec.N !== 3 ? spec.N : "") + "-"
         uri += (spec.M !== undefined && spec.M !== 1 ? spec.M : "") + "-"
-        uri += (spec.K !== undefined && spec.K !== 1 ? (spec.K * 100) : "") + "-"
-        uri += (spec.L !== undefined && spec.L !== 1 ? (spec.L * 100) : "")
+        uri += (spec.K !== undefined && spec.K !== 0.05 ? (spec.K * 100) : "") + "-"
+        uri += (spec.L !== undefined && spec.L !== 0.20 ? (spec.L * 100) : "")
         uri = uri.replace(/-+$/, "")
         uri = uri.replace(/---+/g, (m) => `+${m.length}+`)
         return uri
