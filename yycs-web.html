@@ -98,7 +98,6 @@
                 background-color: #507090;
                 outline: none;
             }
-
             textarea.css {
                 width: 700px;
                 height: 200px;
@@ -108,7 +107,6 @@
                 border: 0;
                 padding: 4px;
             }
-
             .sample {
                 display: flex;
                 flex-direction: row;
@@ -276,6 +274,7 @@
                 }
             },
             created () {
+                this.hashImport()
                 this.update()
             },
             methods: {
@@ -296,6 +295,42 @@
                     if (this.spec.K      !== "") spec.K = parseFloat(this.spec.K)
                     if (this.spec.L      !== "") spec.L = parseFloat(this.spec.L)
                     this.yycs = new YYCS(spec)
+                    this.hashExport()
+                },
+                hashImport () {
+                    const uri = window.location.hash.toString().replace(/^#/, "")
+                    const spec = YYCS.uri2spec(`yycs:${uri}`)
+                    if (spec.reg?.bg !== undefined && spec.reg.bg !== this.spec.reg.bg) objectPath.set(this.spec, "reg.bg", spec.reg.bg)
+                    if (spec.acc?.bg !== undefined && spec.acc.bg !== this.spec.acc.bg) objectPath.set(this.spec, "acc.bg", spec.acc.bg)
+                    if (spec.sig?.bg !== undefined && spec.sig.bg !== this.spec.sig.bg) objectPath.set(this.spec, "sig.bg", spec.sig.bg)
+                    if (spec.reg?.fg !== undefined && spec.reg.fg !== this.spec.reg.fg) objectPath.set(this.spec, "reg.fg", spec.reg.fg)
+                    if (spec.acc?.fg !== undefined && spec.acc.fg !== this.spec.acc.fg) objectPath.set(this.spec, "acc.fg", spec.acc.fg)
+                    if (spec.sig?.fg !== undefined && spec.sig.fg !== this.spec.sig.fg) objectPath.set(this.spec, "sig.fg", spec.sig.fg)
+                    if (spec.axr?.fg !== undefined && spec.axr.fg !== this.spec.axr.fg) objectPath.set(this.spec, "axr.fg", spec.axr.fg)
+                    if (spec.sxr?.fg !== undefined && spec.sxr.fg !== this.spec.sxr.fg) objectPath.set(this.spec, "sxr.fg", spec.sxr.fg)
+                    if (spec.N !== undefined && spec.N !== this.spec.N) this.spec.N = spec.N
+                    if (spec.M !== undefined && spec.M !== this.spec.M) this.spec.M = spec.M
+                    if (spec.K !== undefined && spec.K !== this.spec.K) this.spec.K = spec.K
+                    if (spec.L !== undefined && spec.L !== this.spec.L) this.spec.L = spec.L
+                },
+                hashExport () {
+                    const spec = {}
+                    if (this.spec.reg.bg !== "") objectPath.set(spec, "reg.bg", this.spec.reg.bg)
+                    if (this.spec.acc.bg !== "") objectPath.set(spec, "acc.bg", this.spec.acc.bg)
+                    if (this.spec.sig.bg !== "") objectPath.set(spec, "sig.bg", this.spec.sig.bg)
+                    if (this.spec.reg.fg !== "") objectPath.set(spec, "reg.fg", this.spec.reg.fg)
+                    if (this.spec.acc.fg !== "") objectPath.set(spec, "acc.fg", this.spec.acc.fg)
+                    if (this.spec.sig.fg !== "") objectPath.set(spec, "sig.fg", this.spec.sig.fg)
+                    if (this.spec.axr.fg !== "") objectPath.set(spec, "axr.fg", this.spec.axr.fg)
+                    if (this.spec.sxr.fg !== "") objectPath.set(spec, "sxr.fg", this.spec.sxr.fg)
+                    if (this.spec.N      !== "") spec.N = parseInt(this.spec.N)
+                    if (this.spec.M      !== "") spec.M = parseInt(this.spec.M)
+                    if (this.spec.K      !== "") spec.K = parseFloat(this.spec.K)
+                    if (this.spec.L      !== "") spec.L = parseFloat(this.spec.L)
+                    const uri = YYCS.spec2uri(spec)
+                    const uriOld = window.location.hash.toString().replace(/^#/, "")
+                    if (uriOld !== uri)
+                        window.location.hash = `#${uri.replace(/^yycs:/, "")}`
                 },
                 transpose (color) {
                     const hsl = tinycolor(color).toHsl()
