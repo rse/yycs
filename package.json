@@ -11,7 +11,7 @@
     "license":                              "MIT",
     "repository": {
         "type":                             "git",
-        "url":                              "git+https://github.com/rse/yycs"
+        "url":                              "git+https://github.com/rse/yycs.git"
     },
     "main":                                 "dst/yycs-api.js",
     "types":                                "dst/yycs-api.d.ts",
