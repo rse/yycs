@@ -34,7 +34,7 @@ import YYCS, { YYCSInput } from "./yycs-api"
     /*  parse command-line arguments  */
     // @ts-ignore
     const args = yargs
-        /* eslint indent: off */
+        /* eslint @stylistic/indent: off */
         .usage("Usage: $0 <options> [<uri>]")
         .help("h").alias("h", "help").default("h", false)
             .describe("h", "show usage help")

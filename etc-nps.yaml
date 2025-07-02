@@ -24,7 +24,7 @@
 
 scripts:
     build:        npm start eslint tsc vite
-    eslint:       eslint --config etc-eslint.yaml --ext ts *.ts
+    eslint:       eslint --config etc-eslint.mjs --ext ts *.ts
     tsc:          tsc --project etc-tsc.json --declaration
     vite:         vite --config etc-vite.ts build --logLevel error
     clean:        rimraf dst
