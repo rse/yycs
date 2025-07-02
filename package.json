@@ -13,10 +13,10 @@
         "type":                             "git",
         "url":                              "git+https://github.com/rse/yycs"
     },
-    "main":                                 "dst/yyargs-api.js",
-    "types":                                "dst/yyargs-api.d.ts",
-    "browser":                              "dst/yyargs-api.umd.js",
-    "bin":                                  { "yycs": "dst/yyargs-cli.js" },
+    "main":                                 "dst/yycs-api.js",
+    "types":                                "dst/yycs-api.d.ts",
+    "browser":                              "dst/yycs-api.umd.js",
+    "bin":                                  { "yycs": "dst/yycs-cli.js" },
     "dependencies": {
         "yargs":                            "18.0.0",
         "js-yaml":                          "4.1.0",
