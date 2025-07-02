@@ -33,7 +33,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@3.5.17/dist/vue.global.prod.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/object-path@0.11.8/index.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/tinycolor2@1.6.0/dist/tinycolor-min.js"></script>
         <script type="text/javascript" src="./dst/yycs-api.umd.js"></script>
         <style type="text/css">
             body {
@@ -299,6 +298,8 @@
                 },
                 hashImport () {
                     const uri = window.location.hash.toString().replace(/^#/, "")
+                    if (uri === "")
+                        return
                     const spec = YYCS.uri2spec(`yycs:${uri}`)
                     if (spec.reg?.bg !== undefined && spec.reg.bg !== this.spec.reg.bg) objectPath.set(this.spec, "reg.bg", spec.reg.bg)
                     if (spec.acc?.bg !== undefined && spec.acc.bg !== this.spec.acc.bg) objectPath.set(this.spec, "acc.bg", spec.acc.bg)
@@ -331,14 +332,6 @@
                     const uriOld = window.location.hash.toString().replace(/^#/, "")
                     if (uriOld !== uri)
                         window.location.hash = `#${uri.replace(/^yycs:/, "")}`
-                },
-                transpose (color) {
-                    const hsl = tinycolor(color).toHsl()
-                    if (hsl.l <= 0.5)
-                        hsl.l = 1.00 - (hsl.l / 0.50) * 0.15
-                    else
-                        hsl.l = 0.00 + (hsl.l / 0.50) * 0.15
-                    return tinycolor(hsl).toHexString()
                 }
             }
         })
