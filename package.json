@@ -29,7 +29,7 @@
         "@types/node":                      "26.2.0"
     },
     "devDependencies": {
-        "nps":                              "5.10.0",
+        "@rse/stx":                         "1.1.6",
         "eslint":                           "9.39.5",
         "@eslint/js":                       "9.39.5",
         "@typescript-eslint/parser":        "8.67.0",
@@ -44,7 +44,7 @@
         "fsevents":                         true
     },
     "scripts": {
-        "prepublishOnly":                   "nps -c etc-nps.yaml eslint tsc vite",
-        "start":                            "nps -c etc-nps.yaml"
+        "prepublishOnly":                   "npm start build",
+        "start":                            "stx -v4 -c etc-stx.conf"
     }
 }
