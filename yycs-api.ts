@@ -169,7 +169,7 @@ export default class YYCS {
 
     /*  generate CSS variable definitions  */
     css () {
-        let html = ""
+        let css = ""
         const genColorList = (colorList: string[], prefix: string) => {
             let html = ""
             for (let i = 0; i < colorList.length; i++)
@@ -182,13 +182,13 @@ export default class YYCS {
             html += genColorList(colorSet.bg, `${prefix}-bg`)
             return html
         }
-        html += genColorSet(this.acc, "acc")
-        html += genColorSet(this.axr, "axr")
-        html += genColorSet(this.reg, "reg")
-        html += genColorSet(this.sxr, "sxr")
-        html += genColorSet(this.sig, "sig")
-        html = ":root {\n" + html.replace(/^(.)/mg, "    $1") + "}\n"
-        return html
+        css += genColorSet(this.acc, "acc")
+        css += genColorSet(this.axr, "axr")
+        css += genColorSet(this.reg, "reg")
+        css += genColorSet(this.sxr, "sxr")
+        css += genColorSet(this.sig, "sig")
+        css = ":root {\n" + css.replace(/^(.)/mg, "    $1") + "}\n"
+        return css
     }
 
     /*  convert URI to input specification  */
@@ -197,7 +197,7 @@ export default class YYCS {
         uri = uri.replace(/\+(\d+)\+/g, (m, d) => "-".repeat(parseInt(d)))
         const segs = uri.split("-")
         for (let i = 0; i < 12; i++)
-            if (segs[i] === undefined || segs[i] === "")
+            if (segs[i] === undefined)
                 segs[i] = ""
         const spec = {} as YYCSInput
         const color = (seg: string) => {
