@@ -27,15 +27,16 @@ import tc         from "tinycolor2"
 import objectPath from "object-path"
 
 /*  input and output colors  */
-type YYCSInputColors  = { bg: string,   fg?: string   }
-type YYCSOutputColors = { bg: string[], fg:  string[] }
+type YYCSInputColors   = { bg: string,   fg?: string   }
+type YYCSInputColorsFg = { fg?: string }
+type YYCSOutputColors  = { bg: string[], fg:  string[] }
 
 /*  color scheme input specification  */
 export type YYCSInput = {
     acc:   YYCSInputColors,
-    axr?:  YYCSInputColors,
+    axr?:  YYCSInputColorsFg,
     reg:   YYCSInputColors,
-    sxr?:  YYCSInputColors,
+    sxr?:  YYCSInputColorsFg,
     sig?:  YYCSInputColors,
     N?:    number,
     M?:    number,
@@ -44,6 +45,9 @@ export type YYCSInput = {
 }
 
 export default class YYCS {
+    /*  default spread parameters  */
+    private static readonly defaults = { N: 3, M: 1, K: 0.05, L: 0.20 }
+
     /*  color scheme output  */
     public acc: YYCSOutputColors = { bg: [], fg: [] }
     public axr: YYCSOutputColors = { bg: [], fg: [] }
@@ -58,10 +62,10 @@ export default class YYCS {
     /*  construct a new color scheme  */
     constructor (spec: YYCSInput) {
         /*  determine spread parameters  */
-        this.N = spec.N ?? 3
-        this.M = spec.M ?? 1
-        this.K = spec.K ?? 0.05
-        this.L = spec.L ?? 0.20
+        this.N = spec.N ?? YYCS.defaults.N
+        this.M = spec.M ?? YYCS.defaults.M
+        this.K = spec.K ?? YYCS.defaults.K
+        this.L = spec.L ?? YYCS.defaults.L
 
         /*  determine: background base colors  */
         this.reg.bg[this.N] = spec.reg.bg
@@ -196,18 +200,24 @@ export default class YYCS {
             if (segs[i] === undefined || segs[i] === "")
                 segs[i] = ""
         const spec = {} as YYCSInput
-        objectPath.set(spec, "reg.bg", tc(segs[0]).toHexString())
-        objectPath.set(spec, "acc.bg", tc(segs[1]).toHexString())
-        if (segs[2]) objectPath.set(spec, "sig.bg", tc(segs[2]).toHexString())
-        if (segs[3]) objectPath.set(spec, "reg.fg", tc(segs[3]).toHexString())
-        if (segs[4]) objectPath.set(spec, "acc.fg", tc(segs[4]).toHexString())
-        if (segs[5]) objectPath.set(spec, "sig.fg", tc(segs[5]).toHexString())
-        if (segs[6]) objectPath.set(spec, "axr.fg", tc(segs[6]).toHexString())
-        if (segs[7]) objectPath.set(spec, "sxr.fg", tc(segs[7]).toHexString())
+        const color = (seg: string) => {
+            const c = tc(seg)
+            if (!c.isValid())
+                throw new Error(`invalid color "${seg}" in URI`)
+            return c.toHexString()
+        }
+        objectPath.set(spec, "reg.bg", color(segs[0]))
+        objectPath.set(spec, "acc.bg", color(segs[1]))
+        if (segs[2]) objectPath.set(spec, "sig.bg", color(segs[2]))
+        if (segs[3]) objectPath.set(spec, "reg.fg", color(segs[3]))
+        if (segs[4]) objectPath.set(spec, "acc.fg", color(segs[4]))
+        if (segs[5]) objectPath.set(spec, "sig.fg", color(segs[5]))
+        if (segs[6]) objectPath.set(spec, "axr.fg", color(segs[6]))
+        if (segs[7]) objectPath.set(spec, "sxr.fg", color(segs[7]))
         if (segs[8]) spec.N = parseInt(segs[8])
         if (segs[9]) spec.M = parseInt(segs[9])
-        if (segs[10]) spec.K = parseInt(segs[10]) / 100
-        if (segs[11]) spec.L = parseInt(segs[11]) / 100
+        if (segs[10]) spec.K = parseFloat(segs[10]) / 100
+        if (segs[11]) spec.L = parseFloat(segs[11]) / 100
         return spec
     }
 
@@ -222,10 +232,10 @@ export default class YYCS {
         uri += (spec.sig?.fg ? tc(spec.sig.fg).toHex() : "") + "-"
         uri += (spec.axr?.fg ? tc(spec.axr.fg).toHex() : "") + "-"
         uri += (spec.sxr?.fg ? tc(spec.sxr.fg).toHex() : "") + "-"
-        uri += (spec.N !== undefined && spec.N !== 3 ? spec.N : "") + "-"
-        uri += (spec.M !== undefined && spec.M !== 1 ? spec.M : "") + "-"
-        uri += (spec.K !== undefined && spec.K !== 0.05 ? (spec.K * 100) : "") + "-"
-        uri += (spec.L !== undefined && spec.L !== 0.20 ? (spec.L * 100) : "")
+        uri += (spec.N !== undefined && spec.N !== YYCS.defaults.N ? spec.N : "") + "-"
+        uri += (spec.M !== undefined && spec.M !== YYCS.defaults.M ? spec.M : "") + "-"
+        uri += (spec.K !== undefined && spec.K !== YYCS.defaults.K ? (spec.K * 100) : "") + "-"
+        uri += (spec.L !== undefined && spec.L !== YYCS.defaults.L ? (spec.L * 100) : "")
         uri = uri.replace(/-+$/, "")
         uri = uri.replace(/---+/g, (m) => `+${m.length}+`)
         return uri

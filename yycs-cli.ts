@@ -29,10 +29,27 @@ import mergeOptions        from "merge-options"
 import jsYAML              from "js-yaml"
 import YYCS, { YYCSInput } from "./yycs-api"
 
+/*  parsed command-line arguments  */
+type YYCSArgs = {
+    _:      Array<string | number>,
+    regBg?: string,
+    accBg?: string,
+    sigBg?: string,
+    regFg?: string,
+    accFg?: string,
+    sigFg?: string,
+    axrFg?: string,
+    sxrFg?: string,
+    N?:     number,
+    M?:     number,
+    K?:     number,
+    L?:     number,
+    format: string
+}
+
 /*  establish environment  */
 ;(async () => {
     /*  parse command-line arguments  */
-    // @ts-ignore
     const args = yargs(process.argv.slice(2))
         /* eslint @stylistic/indent: off */
         .usage("Usage: $0 <options> [<uri>]")
@@ -68,7 +85,7 @@ import YYCS, { YYCSInput } from "./yycs-api"
         .strict()
         .showHelpOnFail(true)
         .demandCommand(0, 1)
-        .parse() as any
+        .parse() as YYCSArgs
 
     /*  one of acc-bg/reg-bg or URI is required  */
     if (args._.length !== 1 && !(args.accBg && args.regBg))
@@ -79,7 +96,7 @@ import YYCS, { YYCSInput } from "./yycs-api"
 
     /*  optionally load URI options  */
     if (args._.length === 1) {
-        const uri = args._[0]
+        const uri = String(args._[0])
         const specURI = YYCS.uri2spec(uri)
         spec = mergeOptions(spec, specURI) as YYCSInput
     }
