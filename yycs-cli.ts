@@ -33,7 +33,7 @@ import YYCS, { YYCSInput } from "./yycs-api"
 ;(async () => {
     /*  parse command-line arguments  */
     // @ts-ignore
-    const args = yargs
+    const args = yargs(process.argv.slice(2))
         /* eslint @stylistic/indent: off */
         .usage("Usage: $0 <options> [<uri>]")
         .help("h").alias("h", "help").default("h", false)
@@ -68,7 +68,7 @@ import YYCS, { YYCSInput } from "./yycs-api"
         .strict()
         .showHelpOnFail(true)
         .demandCommand(0, 1)
-        .parse(process.argv.slice(2)) as any
+        .parse() as any
 
     /*  one of acc-bg/reg-bg or URI is required  */
     if (args._.length !== 1 && !(args.accBg && args.regBg))
@@ -105,7 +105,7 @@ import YYCS, { YYCSInput } from "./yycs-api"
     if (args.format === "json")
         process.stdout.write(JSON.stringify(yycs, null, "    ") + "\n")
     else if (args.format === "yaml")
-        process.stdout.write(jsYAML.dump(yycs, { indent: 4, flowLevel: 2, noCompatMode: true, quotingType: "\"" }) + "\n")
+        process.stdout.write(jsYAML.dump(JSON.parse(JSON.stringify(yycs)), { indent: 4, flowLevel: 2, quoteStyle: "double" }) + "\n")
     else if (args.format === "css")
         process.stdout.write(yycs.css() + "\n")
     else if (args.format === "uri")
