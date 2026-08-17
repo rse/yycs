@@ -190,7 +190,7 @@ export default class YYCS {
     /*  convert URI to input specification  */
     static uri2spec (uri: string) {
         uri = uri.replace(/^yycs:/, "")
-        uri = uri.replace(/\+(\d+)\+/g, (m, d) => (new Array(parseInt(d))).join("-"))
+        uri = uri.replace(/\+(\d+)\+/g, (m, d) => "-".repeat(parseInt(d)))
         const segs = uri.split("-")
         for (let i = 0; i < 12; i++)
             if (segs[i] === undefined || segs[i] === "")
