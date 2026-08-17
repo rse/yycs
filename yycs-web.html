@@ -149,7 +149,7 @@
                         <input class="value" v-model="spec.acc.fg"/>
                     </div>
                 </div>
-                <div class="spec-col axs">
+                <div class="spec-col axr">
                     <div class="spec-item fg">
                         <div class="name">axr-fg</div>
                         <input class="value" v-model="spec.axr.fg"/>
@@ -165,7 +165,7 @@
                         <input class="value" v-model="spec.reg.fg"/>
                     </div>
                 </div>
-                <div class="spec-col sxs">
+                <div class="spec-col sxr">
                     <div class="spec-item fg">
                         <div class="name">sxr-fg</div>
                         <input class="value" v-model="spec.sxr.fg"/>
@@ -215,14 +215,14 @@
 
             <div class="sample">
                 <div v-for="col in [ 'acc', 'axr', 'reg', 'sxr', 'sig' ]" v-bind:key="col" class="sample-col">
-                    <div v-for="(bg, n) in yycs[col].bg" class="sample-item">
-                        <div class="fg" v-bind:style="{ backgroundColor: yycs[col].bg[n] }">
-                            <div v-for="(fg, m) in yycs[col].fg" v-bind:style="{ color: yycs[col].fg[m] }">
-                                {{ col }}-fg-{{ m + 1 }} {{ yycs[col].fg[m] }}
+                    <div v-for="(bg, n) in yycs[col].bg" v-bind:key="n" class="sample-item">
+                        <div class="fg" v-bind:style="{ backgroundColor: bg }">
+                            <div v-for="(fg, m) in yycs[col].fg" v-bind:key="m" v-bind:style="{ color: fg }">
+                                {{ col }}-fg-{{ m + 1 }} {{ fg }}
                             </div>
                         </div>
                         <div class="bg">
-                            {{ col }}-bg-{{ n + 1 }} {{ yycs[col].bg[n] }}
+                            {{ col }}-bg-{{ n + 1 }} {{ bg }}
                         </div>
                     </div>
                 </div>
@@ -232,7 +232,6 @@
 
             <textarea class="css">{{ yycs.css() }}</textarea>
         </div>
-    </body>
     <script>
         const app = Vue.createApp({
             data () {
@@ -328,4 +327,5 @@
         })
         app.mount("body")
     </script>
+    </body>
 </html>
