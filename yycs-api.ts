@@ -169,7 +169,7 @@ export default class YYCS {
         const genColorList = (colorList: string[], prefix: string) => {
             let html = ""
             for (let i = 0; i < colorList.length; i++)
-                html += `--yycs-${prefix}-${i + 1}: ${colorList[i]}\n`
+                html += `--yycs-${prefix}-${i + 1}: ${colorList[i]};\n`
             return html
         }
         const genColorSet = (colorSet: YYCSOutputColors, prefix: string) => {
