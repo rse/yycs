@@ -133,7 +133,7 @@
         </style>
     </head>
     <body>
-        <div v-bind:style="style">
+        <div>
             <h1>Yin-Yang Color Scheme</h1>
 
             <h2>Specification</h2>
@@ -142,56 +142,56 @@
                 <div class="spec-col acc">
                     <div class="spec-item bg" v-bind:class="{ invalid: spec.acc.bg === '' }">
                         <div class="name">acc-bg</div>
-                        <input class="value" v-model="spec.acc.bg"></input>
+                        <input class="value" v-model="spec.acc.bg"/>
                     </div>
                     <div class="spec-item fg">
                         <div class="name">acc-fg</div>
-                        <input class="value" v-model="spec.acc.fg"></input>
+                        <input class="value" v-model="spec.acc.fg"/>
                     </div>
                 </div>
                 <div class="spec-col axs">
                     <div class="spec-item fg">
                         <div class="name">axr-fg</div>
-                        <input class="value" v-model="spec.axr.fg"></input>
+                        <input class="value" v-model="spec.axr.fg"/>
                     </div>
                 </div>
                 <div class="spec-col reg">
                     <div class="spec-item bg" v-bind:class="{ invalid: spec.reg.bg === '' }">
                         <div class="name">reg-bg</div>
-                        <input class="value" v-model="spec.reg.bg"></input>
+                        <input class="value" v-model="spec.reg.bg"/>
                     </div>
                     <div class="spec-item fg">
                         <div class="name">reg-fg</div>
-                        <input class="value" v-model="spec.reg.fg"></input>
+                        <input class="value" v-model="spec.reg.fg"/>
                     </div>
                 </div>
                 <div class="spec-col sxs">
                     <div class="spec-item fg">
                         <div class="name">sxr-fg</div>
-                        <input class="value" v-model="spec.sxr.fg"></input>
+                        <input class="value" v-model="spec.sxr.fg"/>
                     </div>
                 </div>
                 <div class="spec-col sig">
                     <div class="spec-item bg">
                         <div class="name">sig-bg</div>
-                        <input class="value" v-model="spec.sig.bg"></input>
+                        <input class="value" v-model="spec.sig.bg"/>
                     </div>
                     <div class="spec-item fg">
                         <div class="name">sig-fg</div>
-                        <input class="value" v-model="spec.sig.fg"></input>
+                        <input class="value" v-model="spec.sig.fg"/>
                     </div>
                 </div>
                 <div class="spec-col params1">
                     <div class="spec-item bg">
                         <div class="params-N">
                             <div class="name">N</div>
-                            <input class="value" v-model="spec.N"></input>
+                            <input class="value" v-model="spec.N"/>
                         </div>
                     </div>
                     <div class="spec-item fg">
                         <div class="params-M">
                             <div class="name">M</div>
-                            <input class="value" v-model="spec.M"></input>
+                            <input class="value" v-model="spec.M"/>
                         </div>
                     </div>
                 </div>
@@ -199,13 +199,13 @@
                     <div class="spec-item bg">
                         <div class="params-K">
                             <div class="name">K</div>
-                            <input class="value" v-model="spec.K"></input>
+                            <input class="value" v-model="spec.K"/>
                         </div>
                     </div>
                     <div class="spec-item fg">
                         <div class="params-L">
                             <div class="name">L</div>
-                            <input class="value" v-model="spec.L"></input>
+                            <input class="value" v-model="spec.L"/>
                         </div>
                     </div>
                 </div>
