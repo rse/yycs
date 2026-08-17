@@ -67,13 +67,13 @@ yycs:336699-996633
 
 $ yycs "yycs:336699-996633" --format css
 :root {
-    --yycs-acc-fg-1: #d7ac84
-    --yycs-acc-fg-2: #f0e0d1
-    --yycs-acc-fg-3: #ffffff
-    --yycs-acc-bg-1: #604020
-    --yycs-acc-bg-2: #734d26
-    --yycs-acc-bg-3: #86592d
-    --yycs-acc-bg-4: #996633
+    --yycs-acc-fg-1: #d7ac84;
+    --yycs-acc-fg-2: #f0e0d1;
+    --yycs-acc-fg-3: #ffffff;
+    --yycs-acc-bg-1: #604020;
+    --yycs-acc-bg-2: #734d26;
+    --yycs-acc-bg-3: #86592d;
+    --yycs-acc-bg-4: #996633;
     [...]
 }
 ```
