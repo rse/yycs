@@ -280,6 +280,10 @@
                     if (this.spec.M      !== "") spec.M = parseInt(this.spec.M)
                     if (this.spec.K      !== "") spec.K = parseFloat(this.spec.K)
                     if (this.spec.L      !== "") spec.L = parseFloat(this.spec.L)
+                    /*  reject invalid numeric parameters  */
+                    for (const key of [ "N", "M", "K", "L" ])
+                        if (spec[key] !== undefined && (!Number.isFinite(spec[key]) || spec[key] < 0 || spec[key] > 100))
+                            return
                     this.yycs = new YYCS(spec)
                     this.hashExport()
                 },
