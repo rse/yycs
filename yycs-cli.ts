@@ -110,10 +110,10 @@ type YYCSArgs = {
     if (args.sigFg) objectPath.set(spec, "sig.fg", args.sigFg)
     if (args.axrFg) objectPath.set(spec, "axr.fg", args.axrFg)
     if (args.sxrFg) objectPath.set(spec, "sxr.fg", args.sxrFg)
-    if (args.N)     spec.N = args.N
-    if (args.M)     spec.M = args.M
-    if (args.K)     spec.K = args.K
-    if (args.L)     spec.L = args.L
+    if (args.N !== undefined) spec.N = args.N
+    if (args.M !== undefined) spec.M = args.M
+    if (args.K !== undefined) spec.K = args.K
+    if (args.L !== undefined) spec.L = args.L
 
     /*  generate color scheme  */
     const yycs = new YYCS(spec)
