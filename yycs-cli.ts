@@ -131,5 +131,6 @@ type YYCSArgs = {
         throw new Error("invalid output format")
 })().catch((ex) => {
     process.stderr.write(`yycs: ERROR: ${ex.toString()}\n`)
+    process.exitCode = 1
 })
 
