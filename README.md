@@ -29,7 +29,7 @@ diagrams, etc.
    - a secondary "**acc**(ent)"  coloring, used about 20% of all times, and
    - a tertiary  "**sig**(nal)"  coloring, used about 5%  of all times.
 
-2, *Coloring Spread*:
+2. *Coloring Spread*:
    The color scheme provides for each of the three colorings 1 or an arbitrary
    odd number of pairs of foreground/background colors.
 
@@ -41,10 +41,10 @@ diagrams, etc.
    The color scheme input specification consists of:
    - 2 primary background/foreground color pairs ("reg-bg" / "reg-fg" and "acc-bg" / "acc-fg"),
    - 1 secondary background/foreground color pair ("sig-bg" / "sig-fg"), and
-   - 2 tertiary cross-derived foreground colors ("axr-fg" and "sxr-fg")
+   - 2 tertiary cross-derived foreground colors ("axr-fg" and "sxr-fg").
 
 3. *Spread Rule*:
-   the color scheme's 8 base colors
+   The color scheme's 8 base colors
 
 License
 -------
