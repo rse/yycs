@@ -263,6 +263,7 @@
                 this.update()
             },
             methods: {
+                /*  (re-)compute the color scheme  */
                 update () {
                     if (this.spec.reg.bg === "" || this.spec.acc.bg === "")
                         return
@@ -286,6 +287,8 @@
                     this.yycs = new YYCS(spec)
                     this.hashExport()
                 },
+
+                /*  import the specification from the URL hash  */
                 hashImport () {
                     const uri = window.location.hash.toString().replace(/^#/, "")
                     if (uri === "")
@@ -304,6 +307,8 @@
                     if (spec.K !== undefined && spec.K !== this.spec.K) this.spec.K = spec.K
                     if (spec.L !== undefined && spec.L !== this.spec.L) this.spec.L = spec.L
                 },
+
+                /*  export the specification to the URL hash  */
                 hashExport () {
                     const spec = {}
                     if (this.spec.reg.bg !== "") objectPath.set(spec, "reg.bg", this.spec.reg.bg)
